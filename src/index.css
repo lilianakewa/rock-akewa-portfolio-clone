@@ -2,41 +2,61 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Brice Clain Portfolio Design System - Colors, typography, animations */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap');
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
-
+    /* Core brand colors matching Brice Clain's palette */
+    --background: 0 0% 98%;
+    --foreground: 240 6% 10%;
+    
+    /* Blue accent system */
+    --primary: 237 92% 14%;
+    --primary-foreground: 0 0% 100%;
+    --primary-light: 237 85% 25%;
+    --primary-glow: 237 85% 35%;
+    
+    /* Warm accent colors */
+    --accent-warm: 27 100% 50%;
+    --accent-warm-light: 27 100% 65%;
+    
+    /* Neutral system */
+    --secondary: 240 5% 96%;
+    --secondary-foreground: 240 6% 20%;
+    
+    --muted: 240 5% 94%;
+    --muted-foreground: 240 4% 46%;
+    
+    --border: 240 6% 90%;
+    --input: 240 6% 92%;
+    --ring: 237 92% 14%;
+    
+    /* Card system */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
-
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
-
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
-
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
-
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
-
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
-
-    --radius: 0.5rem;
+    --card-foreground: 240 6% 10%;
+    
+    /* Interactive states */
+    --hover: 237 85% 18%;
+    --active: 237 85% 22%;
+    
+    /* Portfolio specific colors */
+    --portfolio-bg: 240 5% 98%;
+    --portfolio-card: 0 0% 100%;
+    --portfolio-border: 240 6% 88%;
+    
+    /* Animation variables */
+    --transition-fast: 150ms ease-out;
+    --transition-normal: 300ms ease-out;
+    --transition-slow: 500ms ease-out;
+    --bezier-smooth: cubic-bezier(0.25, 0.1, 0.25, 1);
+    --bezier-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    
+    /* Spacing and sizing */
+    --radius: 12px;
+    --radius-sm: 8px;
+    --radius-lg: 16px;
 
     --sidebar-background: 0 0% 98%;
 
@@ -99,7 +119,149 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
-  body {
-    @apply bg-background text-foreground;
+  html {
+    scroll-behavior: smooth;
   }
+
+  body {
+    @apply bg-background text-foreground font-inter;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Typography scale */
+  .text-hero {
+    @apply text-4xl md:text-6xl lg:text-7xl font-space-grotesk font-bold tracking-tight;
+  }
+  
+  .text-display {
+    @apply text-3xl md:text-4xl lg:text-5xl font-space-grotesk font-semibold tracking-tight;
+  }
+  
+  .text-heading {
+    @apply text-2xl md:text-3xl font-space-grotesk font-semibold;
+  }
+  
+  .text-subheading {
+    @apply text-lg md:text-xl font-medium;
+  }
+  
+  .text-body {
+    @apply text-base leading-relaxed;
+  }
+  
+  .text-caption {
+    @apply text-sm text-muted-foreground;
+  }
+}
+
+@layer components {
+  /* Navigation styles */
+  .nav-link {
+    @apply relative text-foreground hover:text-primary transition-colors duration-300;
+  }
+  
+  .nav-link::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+  
+  .nav-link:hover::after,
+  .nav-link.active::after {
+    @apply w-full;
+  }
+  
+  /* Button variants */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-hover transition-all duration-300 rounded-lg px-6 py-3 font-medium;
+  }
+  
+  .btn-secondary {
+    @apply bg-secondary text-secondary-foreground hover:bg-muted transition-all duration-300 rounded-lg px-6 py-3 font-medium;
+  }
+  
+  .btn-ghost {
+    @apply text-foreground hover:bg-secondary transition-all duration-300 rounded-lg px-4 py-2;
+  }
+  
+  /* Portfolio card styles */
+  .portfolio-card {
+    @apply bg-card border border-portfolio-border rounded-lg overflow-hidden transition-all duration-500 hover:shadow-xl hover:-translate-y-2;
+  }
+  
+  .portfolio-card:hover {
+    box-shadow: 0 20px 40px -10px hsl(var(--primary) / 0.1);
+  }
+  
+  /* Text reveal animation */
+  .text-reveal {
+    overflow: hidden;
+    display: inline-block;
+  }
+  
+  .text-reveal-inner {
+    display: inline-block;
+    transform: translateY(100%);
+  }
+  
+  /* Smooth hover underline */
+  .hover-underline {
+    @apply relative inline-block;
+  }
+  
+  .hover-underline::after {
+    @apply content-[''] absolute bottom-0 left-0 w-0 h-0.5 bg-primary transition-all duration-300;
+  }
+  
+  .hover-underline:hover::after {
+    @apply w-full;
+  }
+  
+  /* Grid layout utilities */
+  .masonry-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+  }
+  
+  /* Scroll animations */
+  .fade-in-up {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  }
+  
+  .fade-in-up.animate {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  
+  /* Profile image styles */
+  .profile-image {
+    @apply relative overflow-hidden rounded-full;
+    background: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+  }
+  
+  .profile-image::before {
+    @apply content-[''] absolute inset-0 rounded-full;
+    background: linear-gradient(135deg, hsl(var(--primary) / 0.1), hsl(var(--accent-warm) / 0.1));
+    z-index: 1;
+  }
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+}
+
+::-webkit-scrollbar-thumb {
+  background: hsl(var(--primary));
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--hover));
 }

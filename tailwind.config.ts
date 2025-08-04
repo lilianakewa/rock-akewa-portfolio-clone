@@ -18,6 +18,10 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				'inter': ['Inter', 'system-ui', 'sans-serif'],
+				'space-grotesk': ['Space Grotesk', 'system-ui', 'sans-serif'],
+			},
 			colors: {
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
@@ -26,7 +30,9 @@ export default {
 				foreground: 'hsl(var(--foreground))',
 				primary: {
 					DEFAULT: 'hsl(var(--primary))',
-					foreground: 'hsl(var(--primary-foreground))'
+					foreground: 'hsl(var(--primary-foreground))',
+					light: 'hsl(var(--primary-light))',
+					glow: 'hsl(var(--primary-glow))'
 				},
 				secondary: {
 					DEFAULT: 'hsl(var(--secondary))',
@@ -42,7 +48,9 @@ export default {
 				},
 				accent: {
 					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
+					foreground: 'hsl(var(--accent-foreground))',
+					warm: 'hsl(var(--accent-warm))',
+					'warm-light': 'hsl(var(--accent-warm-light))'
 				},
 				popover: {
 					DEFAULT: 'hsl(var(--popover))',
@@ -52,6 +60,13 @@ export default {
 					DEFAULT: 'hsl(var(--card))',
 					foreground: 'hsl(var(--card-foreground))'
 				},
+				portfolio: {
+					bg: 'hsl(var(--portfolio-bg))',
+					card: 'hsl(var(--portfolio-card))',
+					border: 'hsl(var(--portfolio-border))'
+				},
+				hover: 'hsl(var(--hover))',
+				active: 'hsl(var(--active))',
 				sidebar: {
 					DEFAULT: 'hsl(var(--sidebar-background))',
 					foreground: 'hsl(var(--sidebar-foreground))',
